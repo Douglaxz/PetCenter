@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <link href="{{ url_for('static',filename='app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+  <title>quizmaker</title>
+</head>
+<body>
+  <div class="container" style="min-height: 620px"> 
+    <div class="box_alert">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <br>
+        <div class="p-3 mb-1 bg-{{category}} text-white" role="alert">
+          {{ message }}
+        </div>   
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    </div>
+    {% block conteudo %} 
+    {% endblock%}
+  </div>
+</div>
+
+<script>
+  function myFunction() {
+      document.getElementById("formulario").submit();
+  }
+</script>  
+</body>
+</html>

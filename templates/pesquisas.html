@@ -1,0 +1,110 @@
+{% extends "template.html"%}
+{% block conteudo %}
+<form method="post" action="{{ url_for('usuario') }}" enctype="multipart/form-data" id="formulario">
+<!-- barra de navegação para desktop/notebook -->
+  <div class="boxtitulocombusca">
+    <div class="box_titulo"><i class="bi bi-card-checklist" style="font-size:2rem; color:black;" data-toggle="tooltip" data-placement="right" title="Usuários"></i> {{ titulo }}</div>
+    <div class="box_busca">{{form.pesquisa(class="busca__input")}}</div>    
+    <div class="box_botoes"><a class="btn btn_titulo" href="#" onclick="myFunction()"><i class="bi bi-search" style="font-size:1.5rem; color:white;"></i></a></div>
+    <div class="box_botoes"><a class="btn btn_titulo" href="{{url_for('pesquisa')}}"><i class="bi bi-eraser" style="font-size:1.5rem; color:white;"></i></a></div>
+    <div class="box_botoes"><a class="btn btn_titulo" href="{{url_for('novoPesquisa')}}"><i class="bi bi-file-earmark-plus" style="font-size:1.5rem; color:white;"></i></a></div>
+  </div>
+<!-- final -->
+<!-- barra de navegação para mobile -->
+  <div class="boxtitulocombusca_responsivo">
+    <div class="box_organizadora">
+      <div class="box_titulo"><i class="bi bi-card-checklist" style="font-size:1.7rem; color:black;" data-toggle="tooltip" data-placement="right" title="Usuários"></i> {{ titulo }}</div>
+      <div class="box_botoes"><a class="btn btn_titulo" href="#" onclick="myFunction()"><i class="bi bi-search" style="font-size:1rem; color:white;"></i></a></div>
+      <div class="box_botoes"><a class="btn btn_titulo" href="{{url_for('pesquisa')}}"><i class="bi bi-eraser" style="font-size:1rem; color:white;"></i></a></div>
+      <div class="box_botoes"><a class="btn btn_titulo" href="{{url_for('novoPesquisa')}}"><i class="bi bi-file-earmark-plus" style="font-size:1rem; color:white;"></i></a></div>
+    </div>
+    <div class="container input-group">{{form.pesquisa_responsiva(class="busca__input")}}</div>
+  </div>  
+<!-- final -->  
+</form>
+<!-- mostrar dados -->
+<div class="boxcentral">
+  <table class="table table-bordered table-responsiv table-hover">
+      <thead>
+        <tr>
+          <th width="60%">Nome</th>
+          <th width="20%">Código</th>
+          <th width="10%">Status</th>
+          <th width="10%" colspan="3" align="center">Ações</th>
+        </tr>
+      </thead>
+        <tbody>
+          {% for pesquisa in pesquisas.items %}
+          <tr>
+              <td>
+                {{ pesquisa.nome_pesquisa }}
+              </td>
+              <td>
+                {{ pesquisa.codext_pesquisa }}
+              </td>              
+              <td>
+                {% if(pesquisa.cod_tipostatus == 1): %}
+                  <i class="btn bi bi-circle-fill" style="font-size:1.5rem; color:orangered;"></i>
+                {% endif %}
+                {% if(pesquisa.cod_tipostatus == 2): %}
+                  <i class="btn bi bi-circle-fill" style="font-size:1.5rem; color:green;"></i>
+                {% endif %}     
+                {% if(pesquisa.cod_tipostatus == 3): %}
+                  <i class="btn bi bi-circle-fill" style="font-size:1.5rem; color:blue;"></i>
+                {% endif %}
+                {% if(pesquisa.cod_tipostatus == 4): %}
+                  <i class="btn bi bi-circle-fill" style="font-size:1.5rem; color:red;"></i>
+                {% endif %}                                                                   
+              </td>
+              <td valing="midle">
+                <a class="btn" href="{{url_for('visualizarPesquisa',idpesquisa=pesquisa.cod_pesquisa)}}"><i class="bi bi-eye" style="font-size:1.5rem; color:black;"></i></a>
+              </td>
+              <td valing="midle">
+                <a class="btn" target="_blank" href="{{url_for('responderPesquisa',idpesquisa=pesquisa.cod_pesquisa)}}"><i class="bi bi-play-circle" style="font-size:1.5rem; color:black;"></i></a>
+              </td>                         
+              <td valing="midle">
+                <a class="btn" href="{{url_for('pesquisaRespondida',idpesquisa=pesquisa.cod_pesquisa)}}"><i class="bi bi-people" style="font-size:1.5rem; color:black;"></i></a>
+              </td>            
+            </tr>
+            {% endfor %}
+      </tbody>
+  </table>
+</div>
+<div class="boxcentral">
+<!-- Pagination Links-->
+<div class="text-right">
+  <a href="{{ url_for('pesquisa', page=pesquisas.prev_num) }}"
+     class="btn btn-outline-dark 
+     {% if pesquisas.page == 1 %}disabled{% endif %}">
+      &laquo;
+  </a>
+<!-- Loop through the number of pages to display a link for each-->
+  {% for page_num in pesquisas.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+{% if page_num %}
+<!-- Check for the active page and set the link to "Active"-->
+          {% if pesquisas.page == page_num %}
+          <a href="{{ url_for('pesquisa', page=page_num) }}"
+             class="btn btn-dark">
+              {{ page_num }}
+          </a>
+          {% else %}
+          <a href="{{ url_for('pesquisa', page=page_num) }}"
+             class="btn btn-outline-dark">
+              {{ page_num }}
+          </a>
+          {% endif %}
+      {% else %}
+          ...
+      {% endif %}
+  {% endfor %}
+  <a href="{{ url_for('pesquisa', page=pesquisas.next_num) }}"
+     class="btn btn-outline-dark 
+     {% if pesquisas.page == pesquisas.pages %}disabled{% endif %}">
+      &raquo;
+  </a>
+</div>
+<p class="text-right mt-3">
+ Mostrando página {{ pesquisas.page }} de {{ pesquisas.pages }}
+</p>
+</div>
+{% endblock%}

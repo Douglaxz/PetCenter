@@ -1,0 +1,84 @@
+{% extends "template.html"%}
+{% block conteudo %}
+<form method="post" action="{{ url_for('atualizarAluno') }}" enctype="multipart/form-data" id="formulario">
+<br>
+  <!-- Padrão para desktop/notebook -->
+  <div class="boxtitulo bg-dark justify-content-between">
+    <div class="bd-highlight col-lg text-left text-white font-weight-bold "><i class="bi bi-universal-access" style="font-size:2rem; color:white;" data-toggle="tooltip" data-placement="right" title="Usuários"></i> {{ titulo }}</div>
+    <div class="col-md-4 offset-md-4" style="text-align: right;">
+    <a class="btn btn-primary" href="#" onclick="myFunction()"><i class="bi bi-save" style="font-size:1.5rem; color:white;"></i></a>
+    <a class="btn btn-danger" href="{{url_for('visualizarAluno',id=id)}}"><i class="bi bi-reply" style="font-size:1.5rem; color:white;"></i></a>  
+  </div>
+</div>  
+  <!-- Padrão para mobile -->
+<div class="boxtitulocombusca_responsivo bg-dark">
+  <div class="bd-highlight col-lg text-left text-white font-weight-bold "><i class="bi bi-universal-access" style="font-size:2rem; color:white;" data-toggle="tooltip" data-placement="right" title="Usuários"></i> {{ titulo }}</div>
+  <div class="col-md-4 offset-md-4" style="text-align: center;">
+    <a class="btn btn-primary" href="#" onclick="myFunction()"><i class="bi bi-save" style="font-size:1.5rem; color:white;"></i></a>
+    <a class="btn btn-danger" href="{{url_for('visualizarAluno',id=id)}}"><i class="bi bi-reply" style="font-size:1.5rem; color:white;"></i></a>   
+  </div>
+</div>
+<!-- conteudo -->
+<div class="boxformulario bg-light p-2 text-dark bg-opacity-50">
+  <input type="hidden" name="id" id="id" value="{{id}}">
+  <fieldset>
+    {{ form.csrf_token() }}
+  <div class="form-group">{{ form.nome.label(class = 'form-label') }}
+    {{ form.nome(class = 'form-control') }}
+  </div>
+  <div class="form-group">{{ form.endereco.label(class = 'form-label') }}
+    {{ form.endereco(class = 'form-control') }}
+  </div>
+    <div class="form-group">{{ form.telefone.label(class = 'form-label') }}
+    {{ form.telefone(class = 'form-control') }}
+  </div>
+  <div class="form-group">{{ form.datanascimento.label(class = 'form-label') }}
+    {{ form.datanascimento(class = 'form-control') }}
+  </div>
+  <div class="form-group">{{ form.diavencimento.label(class = 'form-label') }}
+    {{ form.diavencimento(class = 'form-control') }}
+  </div>  
+  <div class="form-group">{{ form.academia.label(class = 'form-label') }}
+    {{ form.academia(class = 'form-control') }}
+  </div>
+  <div class="form-group">{{ form.tipopagamento.label(class = 'form-label') }}
+    {{ form.tipopagamento(class = 'form-control') }}
+  </div>  
+  <div class="form-group">{{ form.status.label(class = 'form-label') }}
+    {{ form.status(class = 'form-control') }}
+  </div>
+  <div class="form-group">{{ form.observacoes.label(class = 'form-label') }}
+    {{ form.observacoes(class = 'form-control') }}
+  </div>
+  <div class="form-group">{{ form.horarioinicio.label(class = 'form-label') }}
+    {{ form.horarioinicio(class = 'form-control') }}
+  </div>
+  <div class="form-group">{{ form.horariofinal.label(class = 'form-label') }}
+    {{ form.horariofinal(class = 'form-control') }}
+  </div>     
+  <div class="form-group">Dias de Atividade</div>        
+  <div class="form-group">{{ form.diadom.label(class = 'form-check-label') }}
+    {{ form.diadom(class = 'form-check-input') }}
+  </div>
+  <div class="form-group">{{ form.diaseg.label(class = 'form-check-label') }}
+    {{ form.diaseg(class = 'form-check-input') }}
+  </div> 
+  <div class="form-group">{{ form.diater.label(class = 'form-check-label') }}
+    {{ form.diater(class = 'form-check-input') }}
+  </div> 
+  <div class="form-group">{{ form.diaqua.label(class = 'form-check-label') }}
+    {{ form.diaqua(class = 'form-check-input') }}
+  </div> 
+  <div class="form-group">{{ form.diaqui.label(class = 'form-check-label') }}
+    {{ form.diaqui(class = 'form-check-input') }}
+  </div> 
+  <div class="form-group">{{ form.diasex.label(class = 'form-check-label') }}
+    {{ form.diasex(class = 'form-check-input') }}
+  </div> 
+  <div class="form-group">{{ form.diasab.label(class = 'form-check-label') }}
+    {{ form.diasab(class = 'form-check-input') }}
+  </div>              
+  </fieldset>
+</div>
+</form>
+{% endblock%}

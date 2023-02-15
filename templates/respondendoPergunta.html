@@ -1,0 +1,30 @@
+{% extends 'template-pesquisa.html' %}
+{% block conteudo %}
+  <form method="post" action="{{ url_for('responderPergunta') }}" enctype="multipart/form-data" id="formulario">
+    <div class="box_cabecalho">
+      <div class="box_titulo_interno">
+        <i class="bi bi-card-checklist" style="font-size:2rem; color:black;" data-toggle="tooltip" data-placement="right" title="Pesquisa"></i> {{ titulo }}
+      </div>
+      <div class="box_botoes">
+        <a class="btn btn_titulo" href="#" onclick="myFunction()"><i class="bi bi-arrow-right-circle" style="font-size:1.5rem; color:white;"></i></a>
+      </div>
+    </div>
+    <div class="boxformulario">
+      <fieldset>
+        <input type="hidden" name="idpesquisa" id="idpesquisa" value="{{idpesquisa}}">
+        <input type="hidden" name="numeropergunta" id="numeropergunta" value="{{numeropergunta}}">
+        {{ form.csrf_token() }}
+        <div class="form-group">
+          {{ form.pergunta(class = 'busca__input') }}</div> 
+      </fieldset>
+    </div>    
+    <div class="boxformulario">
+      <fieldset>
+        <input type="hidden" name="id" id="id" value="{{id}}">
+        {{ form.csrf_token() }}
+        <div class="form-group">
+          {{ form.opcoes(class = 'form_group') }}</div>   
+      </fieldset>
+    </div>
+  </form>
+{% endblock %}

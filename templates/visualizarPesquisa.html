@@ -1,0 +1,70 @@
+{% extends "template.html"%}
+{% block conteudo %}
+<div class="box_cabecalho">
+  <div class="box_titulo_interno">
+    <i class="bi bi-card-checklist" style="font-size:2rem; color:black;" data-toggle="tooltip" data-placement="right" title="Usuários"></i> {{ titulo }}
+  </div>
+  <div class="box_botoes">
+    <a class="btn btn_titulo" href="{{url_for('editarPesquisa',idpesquisa=idpesquisa)}}"><i class="bi bi-pencil" style="font-size:1.5rem; color:white;"></i></a>
+  </div>
+  <div class="box_botoes">
+    <a class="btn btn_titulo" href="{{url_for('pesquisa')}}"><i class="bi bi-reply" style="font-size:1.5rem; color:white;"></i></a>
+  </div>
+</div>
+<div class="boxformulario">
+  <fieldset>
+    <input type="hidden" name="idpesquisa" id="idpesquisa" value="{{idpesquisa}}">
+    {{form.csrf_token()}}
+    <div class="form-group">{{ form.nome.label(class = 'rotulo') }}
+      {{ form.nome(class = 'busca__input') }}</div>
+    <div class="form-group">{{ form.desc.label(class = 'rotulo') }}
+      {{ form.desc(class = 'busca__input') }}</div>
+    <div class="form-group">{{ form.codext.label(class = 'rotulo') }}
+      {{ form.codext(class = 'busca__input') }}</div>
+    <div class="form-group">{{ form.status.label(class = 'rotulo') }}
+      {{ form.status(class = 'busca__input') }}</div>          
+  </fieldset>
+</div>
+<div class="box_cabecalho">
+  <div class="box_titulo_interno">
+    <i class="bi bi-question-circle" style="font-size:2rem; color:black;" data-toggle="tooltip" data-placement="right" title="Perguntas"></i> Perguntas
+  </div>
+  <div class="box_botoes">
+    <a class="btn btn_titulo" href="{{url_for('novoPergunta',idpesquisa=idpesquisa)}}"><i class="bi bi-file-earmark-plus" style="font-size:1.5rem; color:white;"></i></a>
+  </div>
+</div>
+<div class="boxcentral">
+  <table class="table table-bordered table-responsiv table-hover">
+      <thead>
+        <tr>
+          <th width="10%">Ordem</th>
+          <th width="70%">Pergunta</th>
+          <th width="10%">Status</th>
+          <th width="10%">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for pergunta in perguntas.items %}
+          <tr>
+            <td align="center">
+              {{ pergunta.ordem_pergunta }}
+            </td>            
+            <td>
+              {{ pergunta.desc_pergunta }}
+            </td>
+            <td>
+              {% if(pergunta.status_pergunta == 0): %}
+                <i class="btn bi bi-toggle-on text-success" style="font-size:2rem; color:white;">
+              {% else %}
+                <i class="btn bi bi-toggle-off text-danger" style="font-size:2rem; color:white;">
+              {% endif %}                       
+            </td>
+            <td valing="midle">
+              <a class="btn" href="{{url_for('visualizarPergunta',idpesquisa=idpesquisa,idpergunta=pergunta.cod_pergunta)}}"><i class="bi bi-eye" style="font-size:1.5rem; color:black;"></i></a>
+            </td>              
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock%}

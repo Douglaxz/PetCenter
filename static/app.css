@@ -1,0 +1,112 @@
+ /* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+    line-height: 1;
+    min-height: 100vh;
+    height: 100%;
+}
+
+
+footer {
+    width: 100%;
+    height: 12vh;
+    bottom:0;
+    background-color: white;
+    text-align: center;
+}
+
+.divmarrom {
+    background-color: #7F7045;
+    color: white;
+    height: 7vh;
+    vertical-align: middle;
+    display: table-cell;
+    width: 100vw;
+    padding-left: 13vw;
+}
+
+.divbranco {
+    background-color: white;
+    color: #858585;
+    height: 7vh;
+    vertical-align: middle;
+    display: table-cell;
+    width: 100vw;
+    padding-left: 13vw;
+}
+
+.divanimais {
+    /* Background pattern from Toptal Subtle Patterns */
+    background-image: url("./caogato2.jpg");
+    height: 500px;
+    width: 100%;
+    color: white;
+    font-size: 2rem;
+    padding-top: 15%;
+    padding-left: 10%;
+ }
+
+@media screen and (max-width: 1040px){
+
+
+    body{
+        width: 100vw;
+    }
+
+    .divanimais {
+        /* Background pattern from Toptal Subtle Patterns */
+        background-image: url("./caogato-resp.jpg");
+        height: 500px;
+        width: 100vw;
+        color: white;
+        font-size: 2rem;
+        padding-top: 15%;
+        padding-left: 10%;
+     }
+
+    footer {
+        width: 100%;
+        height: 10vh;
+        bottom:0;
+        background-color: white;
+        text-align: center;
+        border: 2px solid black;
+        vertical-align: top;
+
+    }    
+
+
+
+  }
+

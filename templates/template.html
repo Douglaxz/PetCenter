@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <link href="{{ url_for('static',filename='app.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+  <title>QuizMaker</title>
+</head>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename = 'logopequeno.png') }}" /></a>
+      <div>quiz<font color="#71C3FF">maker</font></div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
+          </li>
+          {% if(session['tipousuario_logado'] == 1)%}
+          <li class="nav-item dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Configurações
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="/usuario">Usuários</a></li>
+              <li><a class="dropdown-item" href="/tipousuario">Tipos de Usuário</a></li>
+              <li><a class="dropdown-item" href="/tipostatus">Tipos de Status</a></li>
+            </ul>
+          </li>
+          {% endif%}
+          <li class="nav-item dropdown">
+            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pesquisas
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="/pesquisa">Minhas Pesquisas</a></li>
+              <li><a class="dropdown-item" href="/responderOutraPergunta">Entrar código</a></li>
+            </ul>
+          </li>        
+          <li class="nav-item">
+            <a class="nav-link active" href="/editarSenhaUsuario">Trocar Senha</a>
+          </li>             
+          <li class="nav-item">
+            <a class="nav-link active" href="/logout">Logout</a>
+          </li>   
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<body>
+  <div class="container" style="min-height: 620px"> 
+    <div class="box_alert">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <br>
+        <div class="p-3 mb-1 bg-{{category}} text-white" role="alert">
+          {{ message }}
+        </div>   
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    </div>
+    {% block conteudo %} 
+    {% endblock%}
+  </div>
+</div>
+<footer class="text-right text-white">
+  <!-- Grid container -->
+  <div class="container p-3">
+    <!-- Section: Social media -->
+    <section>
+      <!-- Facebook -->
+      <a class="btn btn-outline-dark" target="_blank" href="https://www.facebook.com/douglas.amaral2306" role="button"><i class="bi bi-facebook" style="font-size:1.5rem; color:black;"></i></a>
+      <!-- Instagram -->
+      <a class="btn btn-outline-dark" target="_blank" href="https://www.instagram.com/douglaxz/" role="button"><i class="bi bi-instagram" style="font-size:1.5rem; color:black;"></i></a>
+      <!-- Linkedin -->
+      <a class="btn btn-outline-dark" target="_blank" href="https://www.linkedin.com/in/douglas-amaral-8a517227/" role="button"><i class="bi bi-linkedin" style="font-size:1.5rem; color:black;"></i></a>
+      <!-- Github -->
+      <a class="btn btn-outline-dark" target="_blank" href="https://github.com/Douglaxz" role="button"><i class="bi bi-github" style="font-size:1.5rem; color:black;"></i></a>
+    </section>
+    <!-- Section: Social media -->
+  </div>
+  <!-- Grid container -->
+</footer>
+<script>
+  function myFunction() {
+      document.getElementById("formulario").submit();
+  }
+</script>  
+</body>
+</html>
