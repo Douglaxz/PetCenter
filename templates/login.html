@@ -13,12 +13,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
-    
-        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
     <div class="divmarrom">
-      <i class="bi bi-envelope-fill" style="font-size:1.5rem; color:#CE7C2A;"></i> amaralpet@amaralpet.com.br
+      <i class="bi bi-envelope-fill" style="font-size:1.5rem; color:#CE7C2A;"></i> amaralpet@amaralpet.com.br</p>
       <i class="bi bi-telephone-fill" style="font-size:1.5rem; color:#CE7C2A;"></i> +55 (41) 9999-99999
     </div>
     <br>
@@ -57,24 +56,23 @@
             </ul>
           </div>
         </div>
-      </nav>      
+      </nav>
       <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Login</h5>
           <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-          <div class="wrap-login100">
-            <form class="login100-form validate-form" method="POST" action="{{ url_for('autenticar') }}">
-              <span class="login100-form-title p-b-26"><img src="{{ url_for('static', filename = 'logogrande.png') }}" /></span>
-              <span class="login100-form-title p-b-26">quiz<font color="#71C3FF">maker</font></span>
+          <div class="divlogin">
+            <form class="" method="POST" action="{{ url_for('autenticar') }}">
+              <span class="login100-form-title p-b-26"><img src="{{ url_for('static', filename = 'logo.png') }}" /></span>
               <span class="login100-form-title p-b-48"><i class="zmdi zmdi-font"></i></span>
               <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-                <input class="input100" type="text" name="usuario" placeholder="login" required />
+                <input class="form-control" type="text" name="usuario" placeholder="login" required />
               </div>
               <div class="wrap-input100 validate-input" data-validate="Enter password">
                 <span class="btn-show-pass"><i class="zmdi zmdi-eye"></i></span>
-                <input class="input100" type="password" name="senha" placeholder="senha" required />
+                <input class="form-control" type="password" name="senha" placeholder="senha" required />
               </div>
               <div class="container-login100-form-btn">
                 <div class="wrap-login100-form-btn">
@@ -89,19 +87,145 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
     <div class="divanimais">
       Bem-vindo à<br>
       AmaralPet
-    </div> 
+    </div>  
     <div class="divsobre">
+      <div class="op1">
+        <img class="imagemcachorronocolo" src="{{ url_for('static', filename = 'fotosobre.png') }}" />
+      </div>
+      
+      <div class="op2">
+        <div class="titulo-sobre">Sobre</div>
+        <div class="divtitulo-escolha">Bem-vindo à AmaralPet</div> 
+        <div class="textointernoescolha">
+        Cuidar do seu companheiro é um gesto de amor. Aqui na AmaralPet cuidados do seu pet com todo o carinho, amor e respeito que ele merece.  Com os colaboradores mais preparados
+        para atender seu pet, a Amarapel é o centro de referência na saúde e bem estar do seu amigo.
+        </div>
+      </div>
+    </div>
+    <div class="divservico">
+      <div class="divtitulo">Serviços</div>
+      <div class="divtitulo1">AmaralPet tem os melhores serviços para o cuidado total do seu melhor amigo</div>
+      <div class="divservicocentral">
+        <div class="divservicointerna">
+          <img src="{{ url_for('static', filename = 'veterinario.png') }}" />
+          <br>
+          <p class="divservicointerna-titulo">Clinica Veterinária</p>
+          <p class="divservicointerna-texto">Completa para cuidar do seu compnaheiro</p>
+        </div>
+        <div class="divservicointerna">
+          <img src="{{ url_for('static', filename = 'banhoetosa.png') }}" />
+          <br>
+          <p class="divservicointerna-titulo">Banho e tosa</p>
+          <p class="divservicointerna-texto">Para seu pet ficar ainda mais lindo</p>
+        </div>
+        <div class="divservicointerna">
+          <img src="{{ url_for('static', filename = 'dogwalking.png') }}" />
+          <br>
+          <p class="divservicointerna-titulo">Dog Walking</p>
+          <p class="divservicointerna-texto">Passeamos com seu pet com os devidos cuidados</p>
+        </div>
+        <div class="divservicointerna">
+          <img src="{{ url_for('static', filename = 'hotel.png') }}" />
+          <br>
+          <p class="divservicointerna-titulo">Hotel</p>
+          <p class="divservicointerna-texto">Para você viajar tranquilo e deixar seu pet em boa companhia</p>
+        </div>
+      </div>
+  </div>
+  <div class="divescolhacentral">
+    <div class="divescolhaesquerda">
+      <img class="imagemgato" src="{{ url_for('static', filename = 'gatofeliz.png') }}" />
+    </div>
+    <div class="divescolhadireita">
+      <div class="divtitulo">Por que escolher a Amaralpet?</div>
+        <div class="divescolhadireitainterna">
+          <div class="divescolhadireitainterna-item">
+            <div class="merged"><img class="imagem-escolha" src="{{ url_for('static', filename = 'caocoleira.png') }}" /></div>
+            <div class="divescolhadireitainterna-textos">
+              <div class="divtitulo-escolha">Segurança em primeiro lugar</div>
+              <div class="textointernoescolha">Colaboradores constantemente treinados para manter a segurança do seu pet em qualquer ambiente</div>
+            </div>
+          </div>
+          <div class="divescolhadireitainterna-item">
+            <div class="merged"><img class="imagem-escolha" src="{{ url_for('static', filename = 'caobrincando.png') }}" /></div>
+            <div class="divescolhadireitainterna-textos">
+              <div class="divtitulo-escolha">Jardim para brincar e se divertir</div>
+              <div class="textointernoescolha">Um enorme jardim com várias atividades, piscinas, balanças e locais para seu pet se divertir</div>
+            </div>
+          </div> 
+          <div class="divescolhadireitainterna-item">
+            <div class="merged"><img class="imagem-escolha"  src="{{ url_for('static', filename = 'caoseguro.png') }}" /></div>
+            <div class="divescolhadireitainterna-textos">
+              <div class="divtitulo-escolha">Ambiente monitorado</div>
+              <div class="textointernoescolha">De qualquer lugar você poderá espiar seu pet para matar a saudade dele enquanto ele estiver conosco.</div>
+            </div>
+          </div>                     
+        </div>
+      </div>    
+    </div>
+  </div>  
 
-      <div class="op1"><img src="{{ url_for('static', filename = 'fotosobre.png') }}" /></div>
-      <div class="op2">Bem-vindo à<br>      AmaralPet
-  
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-  
-  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled
-  </div     
+
+  <footer class="py-5">
+    <div class="row text-light bg-dark">
+      <div class="col-6 col-md-2 mb-3">
+        <h5>Redes Sociais</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Facebook</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Linkedin</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Instagram</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Twitter</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Tiktok</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-2 mb-3">
+        <h5>Suporte</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Contato</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Chat Online</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Whatsapp</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Telegram</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Snapchat</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-2 mb-3">
+        <h5>Sobre</h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Equipe</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Vagas</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Blog</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Carreira</a></li>
+          <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Imprensa</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-5 offset-md-1 mb-3">
+        <form>
+          <h5>Inscreva-se em nossa newsletter</h5>
+          <p>Semalmente você receberá noticias da AmaralPet no seu e-mail</p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">Email</label>
+            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+            <button class="btn btn-primary" type="button">Inscrever</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="text-light bg-dark">
+      <p>&copy; 2022 Company, Inc. All rights reserved.</p>
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+        <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+      </ul>
+    </div>
+  </footer>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
