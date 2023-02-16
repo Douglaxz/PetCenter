@@ -67,6 +67,17 @@ footer {
 }
 
 .divanimais {
+    background-image: url("./caogato2.jpg");
+    height: 500px;
+    width: 100%;
+    color: white;
+    font-size: 2rem;
+    padding-top: 15%;
+    padding-left: 10%;
+ }
+
+
+ .divanimais {
     /* Background pattern from Toptal Subtle Patterns */
     background-image: url("./caogato2.jpg");
     height: 500px;
@@ -76,6 +87,42 @@ footer {
     padding-top: 15%;
     padding-left: 10%;
  }
+
+
+
+
+
+
+ .divsobre {
+    height: 100%;
+    margin-top: 3vh;
+    margin-left: 3vh;
+    margin-right: 3vh;
+}
+
+div.op1 {
+    width: 25%;
+    float:left;
+    background-color: #CE7C2A;
+    font-size: 3vw;
+    text-align: center;
+    min-width:20vw;
+    margin-left: 9vw;
+    height: 55vh;
+    border-radius: 13em/5em;
+}
+
+div.op2 {
+    width: 48%;
+    float:right;
+    margin-right: 0vw;
+    font-size: 1vw;
+    text-align: center;
+    padding: 5vw 0vw 5vw 0vw;
+    min-width:30vw;
+    float:right;
+}
+.clean{clear:both;}
 
 @media screen and (max-width: 1040px){
 
