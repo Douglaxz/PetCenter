@@ -131,6 +131,7 @@ div.op2 {
     text-align: center;
     font-size: 1.5vw;
     font-weight: bold;
+
 }
 
 .divservicocentral{
@@ -234,9 +235,30 @@ div.op2 {
 }
 
 .divlogin{
-
-    background-color: silver;
+    height: 70vh;
+    padding: auto;
+    text-align: center;
+    align-items: center;
 }
+
+.divlogin-logo{
+    height: 150px;
+    margin-bottom: 15px;
+    text-align: center;
+    align-items: center;    
+    padding-top: 25px;
+}
+
+.divlogin-input{
+    height: 30px;
+    text-align: center;
+    align-items: center;    
+    margin-bottom: 40px;
+
+
+}
+
+
 
 @media screen and (max-width: 1040px){
 
@@ -281,7 +303,7 @@ div.op2 {
 
     .divtitulo1{
         font-size: 1.2rem;
-        width: 80%;
+        width: 90vw;
     }
 
     .divservicocentral{
@@ -291,8 +313,13 @@ div.op2 {
         align-items: center;
         margin-top: 5px;
         text-align: center;
-        align-items: center;
         margin-left: 0%;        
+    }
+
+    .divservico{
+        width: 90vw;
+        text-align: center;
+        margin-left: 1.5vw;
     }
 
     .divservicointerna{
@@ -334,7 +361,7 @@ div.op2 {
 
     .divsobre {
         height: 100%;
-        width: 100%;
+        width: 93vw;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -357,11 +384,14 @@ div.op2 {
     }    
 
     div.op2 {
-        width: 100%;
-        margin-right: 0vw;
-        font-size: 6vw;
-        text-align: center;
-        padding-left: 15%;
+        width: 80vw;
+        font-size: 1.2rem;
+        margin-right: 3vw;
+        padding: 5vw 0vw 0vw 0vw;
+        min-width:30vw;
+        text-align: justify;
+        padding-right: 8vw;
+
     }
 
     .divescolhacentral{

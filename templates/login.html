@@ -65,23 +65,18 @@
         <div class="offcanvas-body">
           <div class="divlogin">
             <form class="" method="POST" action="{{ url_for('autenticar') }}">
-              <span class="login100-form-title p-b-26"><img src="{{ url_for('static', filename = 'logo.png') }}" /></span>
-              <span class="login100-form-title p-b-48"><i class="zmdi zmdi-font"></i></span>
-              <div class="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
+              <diV class="divlogin-logo"><img src="{{ url_for('static', filename = 'logo.png') }}" /></div>
+              <div class="divlogin-input">
                 <input class="form-control" type="text" name="usuario" placeholder="login" required />
               </div>
-              <div class="wrap-input100 validate-input" data-validate="Enter password">
+              <div class="divlogin-input">
                 <span class="btn-show-pass"><i class="zmdi zmdi-eye"></i></span>
                 <input class="form-control" type="password" name="senha" placeholder="senha" required />
               </div>
               <div class="container-login100-form-btn">
                 <div class="wrap-login100-form-btn">
-                  <div class="login100-form-bgbtn"></div>
-                  <button class="login100-form-btn">Login</button>
+                  <button class="btn btn-primary">Login</button>
                 </div>
-              </div>
-              <div class="text-center p-t-50">
-                <span class="txt1"></span>
               </div>
             </form>
           </div>
