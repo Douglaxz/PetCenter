@@ -1,7 +1,7 @@
 #importações
 import os
 from petcenter import app, db
-from models import tb_user, tb_usertype, tb_tipostatus
+from models import tb_user, tb_usertype, tb_tipopet, tb_pet, tb_tutor
 from flask_wtf import FlaskForm
 from wtforms import Form, StringField, validators, SubmitField,IntegerField, SelectField,PasswordField,DateField,EmailField,BooleanField,RadioField, TextAreaField, TimeField, TelField, DateTimeLocalField
 
@@ -95,7 +95,7 @@ class FormularioTipoUsuarioVisualizar(FlaskForm):
 #TABELA: tb_tipopet
 #---------------------------------------------------------------------------------------------------------------------------------
 class FormularioTipoPetEdicao(FlaskForm):
-    descricao = StringField('Descrição:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={"placeholder": "digite a descrição do tipo de usuário"})
+    descricao = StringField('Descrição:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={"placeholder": "digite a descrição do tipo de pet"})
     status = SelectField('Situação:', coerce=int, choices=[(0, 'Ativo'),(1, 'Inativo')])
     salvar = SubmitField('Salvar')    
 
@@ -110,3 +110,33 @@ class FormularioTipoPetVisualizar(FlaskForm):
     salvar = SubmitField('Salvar')    
 
 
+##################################################################################################################################
+#TUTOR
+##################################################################################################################################
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#FORMUÁRIO: tutor
+#TIPO: edição
+#TABELA: tb_tutor
+#---------------------------------------------------------------------------------------------------------------------------------
+class FormularioTutorEdicao(FlaskForm):
+    nome = StringField('Nome:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={"placeholder": "digite o nome do tutor"})
+    endereco = StringField('Endereço:', [validators.DataRequired(), validators.Length(min=1, max=90)], render_kw={"placeholder": "digite o nome do tutor"})
+    telefone = StringField('Telefone:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={"placeholder": "digite o telefone do tutor"})
+    observacoes = TextAreaField('Observações:', [validators.DataRequired(), validators.Length(min=1, max=500)],render_kw={"placeholder": "digite as observações do tutor"})  
+    status = SelectField('Situação:', coerce=int, choices=[(0, 'Ativo'),(1, 'Inativo')])
+    salvar = SubmitField('Salvar')    
+
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#FORMUÁRIO: tutor
+#TIPO: visualização
+#TABELA: tb_tutor
+#---------------------------------------------------------------------------------------------------------------------------------
+class FormularioTutorVisualizar(FlaskForm):
+    nome = StringField('Nome:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={'readonly': True})
+    endereco = StringField('Endereço:', [validators.DataRequired(), validators.Length(min=1, max=90)], render_kw={'readonly': True})
+    telefone = StringField('Telefone:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={'readonly': True})
+    observacoes = TextAreaField('Observações:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={'readonly': True})
+    status = SelectField('Situação:', coerce=int, choices=[(0, 'Ativo'),(1, 'Inativo')], render_kw={'readonly': True})
+    salvar = SubmitField('Salvar')    

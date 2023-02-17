@@ -6,7 +6,9 @@ from datetime import date, timedelta
 from petcenter import app, db
 from models import tb_user,\
     tb_usertype,\
-    tb_tipopet
+    tb_tipopet,\
+    tb_tutor,\
+    tb_pet
 from helpers import \
     FormularPesquisa, \
     FormularioUsuarioTrocarSenha,\
@@ -15,7 +17,9 @@ from helpers import \
     FormularioTipoUsuarioEdicao,\
     FormularioTipoUsuarioVisualizar,\
     FormularioTipoPetEdicao,\
-    FormularioTipoPetVisualizar
+    FormularioTipoPetVisualizar,\
+    FormularioTutorEdicao,\
+    FormularioTutorVisualizar
 
 
 # ITENS POR PÁGINA
@@ -546,3 +550,139 @@ def atualizarTipoPet():
         flash('Favor verificar os campos!','danger')
     return redirect(url_for('visualizarTipoPet', id=request.form['id']))    
 
+
+
+##################################################################################################################################
+#TUTOR
+##################################################################################################################################
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: tutor
+#FUNÇÃO: tela do sistema para mostrar os tutores cadastrados
+#PODE ACESSAR: usuários do tipo administrador
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/tutor', methods=['POST','GET'])
+def tutor():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('tutor')))         
+    page = request.args.get('page', 1, type=int)
+    form = FormularPesquisa()   
+    pesquisa = form.pesquisa.data
+    if pesquisa == "":
+        pesquisa = form.pesquisa_responsiva.data
+    
+    if pesquisa == "" or pesquisa == None:     
+        tutores = tb_tutor.query.order_by(tb_tutor.nome_tutor)\
+        .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)
+    else:
+        tutores = tb_tutor.query.order_by(tb_tutor.nome_tutor)\
+        .filter(tb_tutor.nome_tutor.ilike(f'%{pesquisa}%'))\
+        .paginate(page=page, per_page=ROWS_PER_PAGE, error_out=False)        
+    return render_template('tutores.html', titulo='Tutor', tutores=tutores, form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: novoTutor
+#FUNÇÃO: mostrar o formulário de cadastro de tutor
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/novoTutor')
+def novoTutor():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('novoTutor'))) 
+    form = FormularioTutorEdicao()
+    return render_template('novoTutor.html', titulo='Novo Tutor', form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: criarTutor
+#FUNÇÃO: inserir informações do tutorno banco de dados
+#PODE ACESSAR: todos
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/criarTutor', methods=['POST',])
+def criarTutor():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('criarTutor')))     
+    form = FormularioTutorEdicao(request.form)
+    if not form.validate_on_submit():
+        flash('Por favor, preencha todos os dados','danger')
+        return redirect(url_for('criarTutor'))
+    nome  = form.nome.data
+    endereco  = form.endereco.data
+    telefone = form.telefone.data
+    observacoes = form.observacoes.data
+    status = form.status.data
+    tutor = tb_tutor.query.filter_by(nome_tutor=nome).first()
+    if tutor:
+        flash ('Tutor já existe','danger')
+        return redirect(url_for('tutor')) 
+    novoTutor = tb_tutor(nome_tutor=nome, status_tutor=status,end_tutor=endereco, obs_tutor=observacoes,fone_tutor=telefone)
+    flash('Tutor criado com sucesso!','success')
+    db.session.add(novoTutor)
+    db.session.commit()
+    return redirect(url_for('tutor'))
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: visualizarTutor
+#FUNÇÃO: mostrar formulário de visualização dos tutores cadastrados
+#PODE ACESSAR: todos
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/visualizarTutor/<int:id>')
+def visualizarTutor(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('visualizarTutor')))  
+    tutor = tb_tutor.query.filter_by(cod_tutor=id).first()
+    form = FormularioTutorVisualizar()
+    form.nome.data = tutor.nome_tutor
+    form.endereco.data = tutor.end_tutor
+    form.telefone.data = tutor.fone_tutor
+    form.observacoes.data = tutor.obs_tutor
+    form.status.data = tutor.status_tutor
+    return render_template('visualizarTutor.html', titulo='Visualizar Tutor', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: editarTutor
+##FUNÇÃO: mostrar formulário de edição dos tutores cadastrados
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/editarTutor/<int:id>')
+def editarTutor(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('editarTutor')))  
+    tutor= tb_tutor.query.filter_by(cod_tutor=id).first()
+    form = FormularioTutorEdicao()
+    form.nome.data = tutor.nome_tutor
+    form.endereco.data = tutor.end_tutor
+    form.telefone.data = tutor.fone_tutor
+    form.observacoes.data = tutor.obs_tutor
+    form.status.data = tutor.status_tutor
+    return render_template('editarTutor.html', titulo='Editar Tutor', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: atualizarTutor
+#FUNÇÃO: alterar as informações dos tutores no banco de dados
+#PODE ACESSAR: usuários do tipo administrador
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/atualizarTutor', methods=['POST',])
+def atualizarTutor():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('atualizarTutor')))      
+    form = FormularioTutorEdicao(request.form)
+    if form.validate_on_submit():
+        id = request.form['id']
+        tutor = tb_tutor.query.filter_by(cod_tutor=request.form['id']).first()
+        tutor.nome_tutor = form.nome.data
+        tutor.end_tutor = form.endereco.data
+        tutor.fone_tutor = form.telefone.data
+        tutor.obs_tutor = form.observacoes.data
+        tutor.status_tutor = form.status.data
+        db.session.add(tutor)
+        db.session.commit()
+        flash('Tutor atualizado com sucesso!','success')
+    else:
+        flash('Favor verificar os campos!','danger')
+    return redirect(url_for('visualizarTutor', id=request.form['id']))   
