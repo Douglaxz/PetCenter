@@ -28,3 +28,11 @@ class tb_tipostatus(db.Model):
     status_tipostatus = db.Column(db.Integer, nullable=False)
     def __repr__(self):
         return '<Name %r>' % self.name    
+
+# criação da classe tipopet conectada com o banco de dados mysql
+class tb_tipopet(db.Model):
+    cod_tipopet = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    desc_tipopet = db.Column(db.String(50), nullable=False)
+    status_tipopet = db.Column(db.Integer, nullable=False)
+    def __repr__(self):
+        return '<Name %r>' % self.name   

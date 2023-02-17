@@ -10,7 +10,7 @@ SQLALCHEMY_DATABASE_URI = \
         usuario ='root',
         senha = '12345',
         servidor ='localhost',
-        database ='db_quizmaker')
+        database ='bd_petcenter')
 
 #CAMINHO DO UPLOAD (SE DISPONIVEL)
 UPLOAD_PATH = os.path.dirname(os.path.abspath(__file__)) + '/uploads'

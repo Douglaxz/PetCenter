@@ -6,14 +6,16 @@ from datetime import date, timedelta
 from petcenter import app, db
 from models import tb_user,\
     tb_usertype,\
-    tb_tipostatus
+    tb_tipopet
 from helpers import \
     FormularPesquisa, \
     FormularioUsuarioTrocarSenha,\
     FormularioUsuario, \
     FormularioUsuarioVisualizar, \
     FormularioTipoUsuarioEdicao,\
-    FormularioTipoUsuarioVisualizar
+    FormularioTipoUsuarioVisualizar,\
+    FormularioTipoPetEdicao,\
+    FormularioTipoPetVisualizar
 
 
 # ITENS POR PÁGINA
@@ -420,4 +422,127 @@ def atualizarTipoUsuario():
     else:
         flash('Favor verificar os campos!','danger')
     return redirect(url_for('visualizarTipoUsuario', id=request.form['id']))    
+
+##################################################################################################################################
+#TIPO DE PET
+##################################################################################################################################
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: tipopet
+#FUNÇÃO: tela do sistema para mostrar os tipos de pet cadastrados
+#PODE ACESSAR: usuários do tipo administrador
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/tipopet', methods=['POST','GET'])
+def tipopet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('tipopet')))         
+    page = request.args.get('page', 1, type=int)
+    form = FormularPesquisa()   
+    pesquisa = form.pesquisa.data
+    if pesquisa == "":
+        pesquisa = form.pesquisa_responsiva.data
+    
+    if pesquisa == "" or pesquisa == None:     
+        tipospet = tb_tipopet.query.order_by(tb_tipopet.desc_tipopet)\
+        .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)
+    else:
+        tipospet = tb_tipopet.query.order_by(tb_tipopet.desc_tipopet)\
+        .filter(tipopet.desc_tipopet.ilike(f'%{pesquisa}%'))\
+        .paginate(page=page, per_page=ROWS_PER_PAGE, error_out=False)        
+    return render_template('tipopet.html', titulo='Tipo Pet', tipospet=tipospet, form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: novoTipoPet
+#FUNÇÃO: mostrar o formulário de cadastro de tipo de pet
+#PODE ACESSAR: usuários do tipo administrador
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/novoTipoPet')
+def novoTipoPet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('novoTipoPet'))) 
+    form = FormularioTipoPetEdicao()
+    return render_template('novoTipoPet.html', titulo='Novo Tipo Pet', form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: criarTipoPet
+#FUNÇÃO: inserir informações do tipo de pet no banco de dados
+#PODE ACESSAR: usuários do tipo administrador
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/criarTipoPet', methods=['POST',])
+def criarTipoPet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('criarTipoPet')))     
+    form = FormularioTipoPetEdicao(request.form)
+    if not form.validate_on_submit():
+        flash('Por favor, preencha todos os dados','danger')
+        return redirect(url_for('criarTipoPet'))
+    desc  = form.descricao.data
+    status = form.status.data
+    tipopet = tb_tipopet.query.filter_by(desc_tipopet=desc).first()
+    if tipopet:
+        flash ('Tipo Pet já existe','danger')
+        return redirect(url_for('tipopet')) 
+    novoTipoPet = tb_tipopet(desc_tipopet=desc, status_tipopet=status)
+    flash('Tipo de pet criado com sucesso!','success')
+    db.session.add(novoTipoPet)
+    db.session.commit()
+    return redirect(url_for('tipopet'))
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: visualizarTipoPet
+#FUNÇÃO: mostrar formulário de visualização dos tipos de pet cadastrados
+#PODE ACESSAR: usuários do tipo administrador
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/visualizarTipoPet/<int:id>')
+def visualizarTipoPet(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('visualizarTipoPet')))  
+    tipopet = tb_tipopet.query.filter_by(cod_tipopet=id).first()
+    form = FormularioTipoPetVisualizar()
+    form.descricao.data = tipopet.desc_tipopet
+    form.status.data = tipopet.status_tipopet
+    return render_template('visualizarTipoPet.html', titulo='Visualizar Tipo Pet', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: editarTipoPet
+##FUNÇÃO: mostrar formulário de edição dos tipos de usuários cadastrados
+#PODE ACESSAR: usuários do tipo administrador
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/editarTipoPet/<int:id>')
+def editarTipoPet(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('editarTipoPet')))  
+    tipopet= tb_tipopet.query.filter_by(cod_tipopet=id).first()
+    form = FormularioTipoPetEdicao()
+    form.descricao.data = tipopet.desc_tipopet
+    form.status.data = tipopet.status_tipopet
+    return render_template('editarTipoPet.html', titulo='Editar Tipo Pet', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: atualizarTipoPet
+#FUNÇÃO: alterar as informações dos tipos de pet no banco de dados
+#PODE ACESSAR: usuários do tipo administrador
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/atualizarTipoPet', methods=['POST',])
+def atualizarTipoPet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('atualizarTipoPet')))      
+    form = FormularioTipoPetEdicao(request.form)
+    if form.validate_on_submit():
+        id = request.form['id']
+        tipopet = tb_tipopet.query.filter_by(cod_tipopet=request.form['id']).first()
+        tipopet.desc_tipopet = form.descricao.data
+        tipopet.status_tipopet = form.status.data
+        db.session.add(tipopet)
+        db.session.commit()
+        flash('Tipo de pet atualizado com sucesso!','success')
+    else:
+        flash('Favor verificar os campos!','danger')
+    return redirect(url_for('visualizarTipoPet', id=request.form['id']))    
 
