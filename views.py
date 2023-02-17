@@ -8,7 +8,8 @@ from models import tb_user,\
     tb_usertype,\
     tb_tipopet,\
     tb_tutor,\
-    tb_pet
+    tb_pet,\
+    tb_consulta
 from helpers import \
     FormularPesquisa, \
     FormularioUsuarioTrocarSenha,\
@@ -21,7 +22,9 @@ from helpers import \
     FormularioTutorEdicao,\
     FormularioTutorVisualizar,\
     FormularioPetEdicao,\
-    FormularioPetVisualizar
+    FormularioPetVisualizar,\
+    FormularioConsultaVisualizar,\
+    FormularioConsultaEdicao
 
 
 # ITENS POR PÁGINA
@@ -839,3 +842,145 @@ def atualizarPet():
     else:
         flash('Favor verificar os campos!','danger')
     return redirect(url_for('visualizarPet', id=request.form['id']))   
+
+##################################################################################################################################
+#CONSULTA
+##################################################################################################################################
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: consulta
+#FUNÇÃO: tela do sistema para mostrar os consulta cadastrados
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/consulta', methods=['POST','GET'])
+def consulta():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('consulta')))         
+    page = request.args.get('page', 1, type=int)
+    form = FormularPesquisa()   
+    pesquisa = form.pesquisa.data
+    if pesquisa == "":
+        pesquisa = form.pesquisa_responsiva.data
+    
+    if pesquisa == "" or pesquisa == None:          
+        consultas = tb_consulta.query\
+        .join(tb_pet, tb_pet.cod_pet==tb_consulta.cod_pet)\
+        .join(tb_tutor, tb_tutor.cod_tutor==tb_pet.cod_tutor)\
+        .join(tb_tipopet, tb_tipopet.cod_tipopet==tb_pet.cod_tipopet)\
+        .add_columns(tb_pet.nome_pet, tb_tutor.nome_tutor, tb_consulta.cod_consulta, tb_tipopet.desc_tipopet, tb_consulta.status_consulta, tb_consulta.data_consulta)\
+        .order_by(tb_consulta.data_consulta)\
+        .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)
+    else:
+        consultas = tb_consulta.query\
+        .join(tb_pet, tb_pet.cod_pet==tb_consulta.cod_pet)\
+        .join(tb_tutor, tb_tutor.cod_tutor==tb_pet.cod_tutor)\
+        .join(tb_tipopet, tb_tipopet.cod_tipopet==tb_pet.cod_tipopet)\
+        .filter(tb_pet.nome_pet.ilike(f'%{pesquisa}%'))\
+        .add_columns(tb_pet.nome_pet, tb_tutor.nome_tutor, tb_consulta.cod_consulta, tb_tipopet.desc_tipopet, tb_consulta.status_consulta, tb_consulta.data_consulta)\
+        .order_by(tb_consulta.data_consulta)\
+        .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)     
+    return render_template('consultas.html', titulo='Consultas', consultas=consultas, form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: novoConsulta
+#FUNÇÃO: mostrar o formulário de cadastro de consulta
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/novoConsulta')
+def novoConsulta():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('novoConsulta'))) 
+    form = FormularioConsultaEdicao()
+    return render_template('novoConsulta.html', titulo='Nova Consulta', form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: criarConsulta
+#FUNÇÃO: inserir informações do consulta no banco de dados
+#PODE ACESSAR: todos
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/criarConsulta', methods=['POST',])
+def criarConsulta():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('criarConsulta')))     
+    form = FormularioConsultaEdicao(request.form)
+    if not form.validate_on_submit():
+        flash('Por favor, preencha todos os dados','danger')
+        return redirect(url_for('criarConsulta'))
+    pet  = form.pet.data
+    data  = form.horario.data
+    observacoes = form.observacoes.data
+    status = form.status.data
+    
+    consulta = tb_consulta.query.filter_by(data_consulta=data).first()
+    if consulta:
+        flash ('Consulta já existe','danger')
+        return redirect(url_for('pet')) 
+    novoConsulta = tb_consulta(cod_pet=pet, status_consulta=status, obs_consulta=observacoes,data_consulta=data)
+    flash('Consulta criado com sucesso!','success')
+    db.session.add(novoConsulta)
+    db.session.commit()
+    return redirect(url_for('consulta'))
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: visualizarConsulta
+#FUNÇÃO: mostrar formulário de visualização das consulta cadastrados
+#PODE ACESSAR: todos
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/visualizarConsulta/<int:id>')
+def visualizarConsulta(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('visualizarConsulta')))  
+    consulta = tb_consulta.query.filter_by(cod_consulta=id).first()
+    form = FormularioConsultaVisualizar()
+    form.pet.data = consulta.cod_pet
+    form.horario.data = consulta.data_consulta.strftime('%d/%m/%Y %H:%M')
+    form.observacoes.data = consulta.obs_consulta
+    form.status.data = consulta.status_consulta
+    return render_template('visualizarConsulta.html', titulo='Visualizar Consulta', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: editarConsulta
+##FUNÇÃO: mostrar formulário de edição dos consulta cadastrados
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/editarConsulta/<int:id>')
+def editarConsulta(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('editarConsulta')))  
+    consulta = tb_consulta.query.filter_by(cod_consulta=id).first()
+    form = FormularioConsultaEdicao()
+    form.pet.data = consulta.cod_pet
+    form.horario.data = consulta.data_consulta
+    form.observacoes.data = consulta.obs_consulta
+    form.status.data = consulta.status_consulta
+    return render_template('editarConsulta.html', titulo='Editar Consulta', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: atualizarConsulta
+#FUNÇÃO: alterar as informações dos consulta no banco de dados
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/atualizarConsulta', methods=['POST',])
+def atualizarConsulta():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('atualizarConsulta')))      
+    form = FormularioConsultaEdicao(request.form)
+    if form.validate_on_submit():
+        id = request.form['id']
+        consulta = tb_consulta.query.filter_by(cod_consulta=id).first()
+        consulta.cod_pet = form.pet.data
+        consulta.data_consulta = form.horario.data
+        consulta.obs_consulta = form.observacoes.data
+        consulta.status_consulta = form.status.data
+        db.session.add(consulta)
+        db.session.commit()
+        flash('Consulta atualizado com sucesso!','success')
+    else:
+        flash('Favor verificar os campos!','danger')
+    return redirect(url_for('visualizarConsulta', id=request.form['id']))   

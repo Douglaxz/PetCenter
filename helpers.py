@@ -176,3 +176,30 @@ class FormularioPetVisualizar(FlaskForm):
     tutor = SelectField('Tutor:', coerce=int,  choices=[(g.cod_tutor, g.nome_tutor) for g in tb_tutor.query.order_by('nome_tutor')], render_kw={'readonly': True})
     salvar = SubmitField('Salvar')    
 
+##################################################################################################################################
+#CONSULTA
+##################################################################################################################################
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#FORMUÁRIO: consulta
+#TIPO: visualização
+#TABELA: tb_consulta
+#--------------------------------------------------------------------------------------------------------------------------------- 
+class FormularioConsultaVisualizar(FlaskForm):
+    horario = StringField('Horário:', [validators.DataRequired(), validators.Length(min=1, max=50)],render_kw={'readonly': True})
+    pet = SelectField('Pet:', coerce=int, choices=[(g.cod_pet, g.nome_pet) for g in tb_pet.query.order_by('nome_pet')], render_kw={'readonly': True})
+    status = SelectField('Situação:', coerce=int, choices=[(0,"Agendada"),(1,"Realizada"),(2,"Cancelada")], render_kw={'readonly': True})
+    observacoes = TextAreaField('Observações:', [validators.Length(min=1, max=50)], render_kw={'readonly': True})    
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#FORMUÁRIO: consulta
+#TIPO: edição
+#TABELA: tb_consulta
+#--------------------------------------------------------------------------------------------------------------------------------- 
+class FormularioConsultaEdicao(FlaskForm):
+    horario = DateTimeLocalField('Horário:', [validators.DataRequired()], format='%Y-%m-%dT%H:%M')
+    pet = SelectField('Pet:', coerce=int, choices=[(g.cod_pet, g.nome_pet) for g in tb_pet.query.order_by('nome_pet')])
+    status = SelectField('Situação:', coerce=int, choices=[(0,"Agendada"),(1,"Realizada"),(2,"Cancelada")])
+    observacoes = TextAreaField('Observações:', [validators.DataRequired(), validators.Length(min=1, max=50)])
+
+    

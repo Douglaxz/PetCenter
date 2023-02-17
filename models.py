@@ -55,6 +55,12 @@ class tb_pet(db.Model):
     def __repr__(self):
         return '<Name %r>' % self.name  
 
-
-
-
+# criação da classe consulta conectada com o banco de dados mysql
+class tb_consulta(db.Model):
+    cod_consulta = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    cod_pet = db.Column(db.Integer, nullable=False)
+    data_consulta = db.Column(db.DateTime, nullable=False)
+    status_consulta = db.Column(db.Integer, nullable=False)   
+    obs_consulta = db.Column(db.String(90), nullable=False)
+    def __repr__(self):
+        return '<Name %r>' % self.name  
