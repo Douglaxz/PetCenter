@@ -19,7 +19,9 @@ from helpers import \
     FormularioTipoPetEdicao,\
     FormularioTipoPetVisualizar,\
     FormularioTutorEdicao,\
-    FormularioTutorVisualizar
+    FormularioTutorVisualizar,\
+    FormularioPetEdicao,\
+    FormularioPetVisualizar
 
 
 # ITENS POR PÁGINA
@@ -686,3 +688,142 @@ def atualizarTutor():
     else:
         flash('Favor verificar os campos!','danger')
     return redirect(url_for('visualizarTutor', id=request.form['id']))   
+
+##################################################################################################################################
+#PET
+##################################################################################################################################
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: pet
+#FUNÇÃO: tela do sistema para mostrar os pets cadastrados
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/pet', methods=['POST','GET'])
+def pet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('pet')))         
+    page = request.args.get('page', 1, type=int)
+    form = FormularPesquisa()   
+    pesquisa = form.pesquisa.data
+    if pesquisa == "":
+        pesquisa = form.pesquisa_responsiva.data
+    
+    if pesquisa == "" or pesquisa == None:     
+        pets = tb_pet.query.order_by(tb_pet.nome_pet)\
+        .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)
+    else:
+        tutores = tb_tutor.query.order_by(tb_pet.nome_pet)\
+        .filter(tb_pet.nome_pet.ilike(f'%{pesquisa}%'))\
+        .paginate(page=page, per_page=ROWS_PER_PAGE, error_out=False)        
+    return render_template('pets.html', titulo='Pets', pets=pets, form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: novoPet
+#FUNÇÃO: mostrar o formulário de cadastro de pet
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/novoPet')
+def novoPet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('novoPet'))) 
+    form = FormularioPetEdicao()
+    return render_template('novoTutor.html', titulo='Novo Tutor', form=form)
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: criarPet
+#FUNÇÃO: inserir informações do pet no banco de dados
+#PODE ACESSAR: todos
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/criarPet', methods=['POST',])
+def criarPet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('criarPet')))     
+    form = FormularioPetEdicao(request.form)
+    if not form.validate_on_submit():
+        flash('Por favor, preencha todos os dados','danger')
+        return redirect(url_for('criarPet'))
+    nome  = form.nome.data
+    datanacimento  = form.datanascimento.data
+    raca = form.raca.data
+    observacoes = form.observacoes.data
+    status = form.status.data
+    tipo = form.tipopet.data
+    pet = tb_tutor.query.filter_by(nome_pet=nome).first()
+    if tutor:
+        flash ('Pet já existe','danger')
+        return redirect(url_for('pet')) 
+    novoPet = tb_tutor(nome_pet=nome, status_pet=status,raca_pet=raca, obs_pet=observacoes,cod_tipopet=tipo)
+    flash('Pet criado com sucesso!','success')
+    db.session.add(novoPet)
+    db.session.commit()
+    return redirect(url_for('pet'))
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: visualizarPet
+#FUNÇÃO: mostrar formulário de visualização dos tutores cadastrados
+#PODE ACESSAR: todos
+#--------------------------------------------------------------------------------------------------------------------------------- 
+@app.route('/visualizarPet/<int:id>')
+def visualizarPet(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('visualizarPet')))  
+    pet = tb_pet.query.filter_by(cod_pet=id).first()
+    form = FormularioPetVisualizar()
+    form.nome.data = pet.nome_pet
+    form.raca.data = pet.raca_pet
+    form.tipopet.data = pet.cod_tipopet
+    form.observacoes.data = pet.obs_pet
+    form.datanascimento.data = pet.datanasc_pet
+    form.status.data = pet.status_pet
+    return render_template('visualizarPet.html', titulo='Visualizar Pet', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: editarPet
+##FUNÇÃO: mostrar formulário de edição dos pets cadastrados
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/editarPet/<int:id>')
+def editarPet(id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('editarPet')))  
+    pet = tb_pet.query.filter_by(cod_pet=id).first()
+    form = FormularioPetEdicao()
+    form.nome.data = pet.nome_pet
+    form.raca.data = pet.raca_pet
+    form.tipopet.data = pet.cod_tipopet
+    form.observacoes.data = pet.obs_pet
+    form.datanascimento.data = pet.datanasc_pet
+    form.status.data = pet.status_pet
+    return render_template('editarPet.html', titulo='Editar Pet', id=id, form=form)   
+
+#---------------------------------------------------------------------------------------------------------------------------------
+#ROTA: atualizarPet
+#FUNÇÃO: alterar as informações dos pets no banco de dados
+#PODE ACESSAR: todos
+#---------------------------------------------------------------------------------------------------------------------------------
+@app.route('/atualizarPet', methods=['POST',])
+def atualizarPet():
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        flash('Sessão expirou, favor logar novamente','danger')
+        return redirect(url_for('login',proxima=url_for('atualizarPet')))      
+    form = FormularioTutorEdicao(request.form)
+    if form.validate_on_submit():
+        id = request.form['id']
+        pet = tb_pet.query.filter_by(cod_pet=request.form['id']).first()
+        pet.nome_pet = form.nome.data
+        pet.raca_pet = form.raca.data
+        pet.cod_tipopet = form.tipopet.data
+        pet.obs_pet = form.observacoes.data
+        pet.status_pet = form.status.data
+        pet.datanasc_pet = form.datanascimento.data
+        db.session.add(pet)
+        db.session.commit()
+        flash('Pet atualizado com sucesso!','success')
+    else:
+        flash('Favor verificar os campos!','danger')
+    return redirect(url_for('visualizarPet', id=request.form['id']))   
