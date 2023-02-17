@@ -709,13 +709,21 @@ def pet():
     if pesquisa == "":
         pesquisa = form.pesquisa_responsiva.data
     
-    if pesquisa == "" or pesquisa == None:     
-        pets = tb_pet.query.order_by(tb_pet.nome_pet)\
+    if pesquisa == "" or pesquisa == None:          
+        pets = tb_pet.query\
+        .join(tb_tutor, tb_tutor.cod_tutor==tb_pet.cod_tutor)\
+        .join(tb_tipopet, tb_tipopet.cod_tipopet==tb_pet.cod_tipopet)\
+        .add_columns(tb_pet.nome_pet, tb_tutor.nome_tutor, tb_pet.cod_pet, tb_tipopet.desc_tipopet, tb_pet.raca_pet, tb_pet.status_pet)\
+        .order_by(tb_pet.nome_pet)\
         .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)
     else:
-        tutores = tb_tutor.query.order_by(tb_pet.nome_pet)\
+        pets = tb_pet.query\
+        .join(tb_tutor, tb_tutor.cod_tutor==tb_pet.cod_tutor)\
+        .join(tb_tipopet, tb_tipopet.cod_tipopet==tb_pet.cod_tipopet)\
         .filter(tb_pet.nome_pet.ilike(f'%{pesquisa}%'))\
-        .paginate(page=page, per_page=ROWS_PER_PAGE, error_out=False)        
+        .add_columns(tb_pet.nome_pet, tb_tutor.nome_tutor, tb_pet.cod_pet, tb_tipopet.desc_tipopet, tb_pet.raca_pet, tb_pet.status_pet)\
+        .order_by(tb_pet.nome_pet)\
+        .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)     
     return render_template('pets.html', titulo='Pets', pets=pets, form=form)
 
 #---------------------------------------------------------------------------------------------------------------------------------
@@ -729,7 +737,7 @@ def novoPet():
         flash('Sessão expirou, favor logar novamente','danger')
         return redirect(url_for('login',proxima=url_for('novoPet'))) 
     form = FormularioPetEdicao()
-    return render_template('novoTutor.html', titulo='Novo Tutor', form=form)
+    return render_template('novoPet.html', titulo='Novo Pet', form=form)
 
 #---------------------------------------------------------------------------------------------------------------------------------
 #ROTA: criarPet
@@ -751,11 +759,12 @@ def criarPet():
     observacoes = form.observacoes.data
     status = form.status.data
     tipo = form.tipopet.data
-    pet = tb_tutor.query.filter_by(nome_pet=nome).first()
-    if tutor:
+    tutor = form.tutor.data
+    pet = tb_pet.query.filter_by(nome_pet=nome).first()
+    if pet:
         flash ('Pet já existe','danger')
         return redirect(url_for('pet')) 
-    novoPet = tb_tutor(nome_pet=nome, status_pet=status,raca_pet=raca, obs_pet=observacoes,cod_tipopet=tipo)
+    novoPet = tb_pet(nome_pet=nome, status_pet=status,raca_pet=raca, obs_pet=observacoes,cod_tipopet=tipo,datanasc_pet=datanacimento,cod_tutor=tutor)
     flash('Pet criado com sucesso!','success')
     db.session.add(novoPet)
     db.session.commit()
@@ -779,6 +788,7 @@ def visualizarPet(id):
     form.observacoes.data = pet.obs_pet
     form.datanascimento.data = pet.datanasc_pet
     form.status.data = pet.status_pet
+    form.tutor.data = pet.cod_tutor
     return render_template('visualizarPet.html', titulo='Visualizar Pet', id=id, form=form)   
 
 #---------------------------------------------------------------------------------------------------------------------------------
@@ -799,6 +809,7 @@ def editarPet(id):
     form.observacoes.data = pet.obs_pet
     form.datanascimento.data = pet.datanasc_pet
     form.status.data = pet.status_pet
+    form.tutor.data = pet.cod_tutor
     return render_template('editarPet.html', titulo='Editar Pet', id=id, form=form)   
 
 #---------------------------------------------------------------------------------------------------------------------------------
@@ -811,13 +822,14 @@ def atualizarPet():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         flash('Sessão expirou, favor logar novamente','danger')
         return redirect(url_for('login',proxima=url_for('atualizarPet')))      
-    form = FormularioTutorEdicao(request.form)
+    form = FormularioPetEdicao(request.form)
     if form.validate_on_submit():
         id = request.form['id']
         pet = tb_pet.query.filter_by(cod_pet=request.form['id']).first()
         pet.nome_pet = form.nome.data
         pet.raca_pet = form.raca.data
         pet.cod_tipopet = form.tipopet.data
+        pet.cod_tutor = form.tutor.data
         pet.obs_pet = form.observacoes.data
         pet.status_pet = form.status.data
         pet.datanasc_pet = form.datanascimento.data

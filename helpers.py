@@ -153,9 +153,9 @@ class FormularioTutorVisualizar(FlaskForm):
 class FormularioPetEdicao(FlaskForm):
     tipopet = SelectField('Tipo:', coerce=int,  choices=[(g.cod_tipopet, g.desc_tipopet) for g in tb_tipopet.query.order_by('desc_tipopet')])
     nome = StringField('Nome:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={"placeholder": "digite o nome do pet"})
-    datanascimento = DateField('Data Nascimento:', [validators.DataRequired()], render_kw={"placeholder": "digite a raça de nascimento"})
+    datanascimento = DateField('Data Nascimento:', [validators.DataRequired()], render_kw={"placeholder": "digite a data de nascimento"})
     raca = StringField('Raça:', [validators.DataRequired(), validators.Length(min=1, max=50)], render_kw={"placeholder": "digite o telefone do tutor"})
-    observacoes = TextAreaField('Observações:', [validators.DataRequired(), validators.Length(min=1, max=500)],render_kw={"placeholder": "digite as observações do tutor"})  
+    observacoes = TextAreaField('Observações:', [validators.Length(min=1, max=500)],render_kw={"placeholder": "digite as observações do tutor"})  
     status = SelectField('Situação:', coerce=int, choices=[(0, 'Ativo'),(1, 'Inativo')])
     tutor = SelectField('Tutor:', coerce=int,  choices=[(g.cod_tutor, g.nome_tutor) for g in tb_tutor.query.order_by('nome_tutor')])
     salvar = SubmitField('Salvar')    
