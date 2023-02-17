@@ -30,6 +30,22 @@ footer, header, hgroup, menu, nav, section {
     display: block;
 }
 
+ol, ul {
+    list-style: none;
+}
+
+th{
+    text-align: left;
+}
+
+thead{
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    background-color: #CE7C2A;
+
+}
+
 body {
     font-family: 'Roboto Condensed', sans-serif;
     line-height: 1;
@@ -44,6 +60,64 @@ footer {
     bottom:0;
     background-color: white;
     text-align: center;
+}
+
+.boxtitulocombusca {
+    margin: 15px auto;
+    width: 70%; /* Valor da Largura */
+    border-radius: 10px;
+    padding: 5px;
+    line-height: 50px;
+    text-align: center;   
+    font-weight: bold;
+    display: flex;
+    border: 2px solid black;
+    background-color: #7F7045;
+    color: white;
+    align-items: center;
+}
+
+.boxtitulocombusca_responsivo {
+    display:none
+}
+
+
+.box_titulo {
+    font-size: 1.5rem;
+    width: 60%;
+    font-weight: bold;  
+    text-align: left; 
+}
+
+.busca__input {
+    background-color: white;
+    font-size: 1rem;
+    height: 40px;
+} 
+
+.box_organizadora{
+    display: flex;
+    align-items: center;
+}
+
+.box_botoes {
+    width: 7%; /* Valor da Largura */
+    align-items: left;
+    padding: 10px;
+}
+
+.boxcentral {
+    margin: 10px auto;
+    width: 70%; /* Valor da Largura */
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px;  
+    line-height: 170%;
+    text-align: left;
+    height: auto;
+    border: 2px solid black;
+    background-color: white;
 }
 
 .divmarrom {
@@ -258,10 +332,86 @@ div.op2 {
 
 }
 
+.box_cabecalho {
+    margin: 15px auto;
+    width: 70%; /* Valor da Largura */
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 5px;
+    line-height: 50px;
+    font-size: 2vw;
+    color: white;
+    text-align: left;   
+    font-weight: bold;
+    display: flex;
+    border: 2px solid black;
+    background-color: #CE7C2A
+}
 
+.boxformulario {
+    margin: 10px auto;
+    width: 70%; /* Valor da Largura */
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 10px;  
+    line-height: 200%;
+    border: 2px solid black;
+    background-color: white;
+}
+
+.rotulo{
+    color: black;
+    margin: 2px;
+}
+
+.box_titulo_interno {
+    margin: 5px auto;
+    width: 90%; /* Valor da Largura */
+    align-items: center;
+    justify-content: left;
+    padding: 5px;
+    font-size: 2vw;
+    text-align: left;   
+    font-weight: bold;
+    display: flex;
+    font-weight: bold;
+}
 
 @media screen and (max-width: 1040px){
 
+    .boxformulario {
+        width: 94vw;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: 2px solid black;
+        padding: 10px;
+        line-height: 40px;
+        margin-top: 10px;
+        margin-left: 0px;    
+        background-color: white;
+    }
+
+    .box_cabecalho {
+        width: 94vw;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        padding: 5px;
+        line-height: 50px;
+        font-size: 2vw;
+        color: black;
+        text-align: left;   
+        font-weight: bold;
+        display: flex;
+        border: 2px solid black;
+        background-color: #CE7C2A;
+        margin-left: 0px;
+
+
+    }
 
     body{
         width: 100vw;
@@ -269,14 +419,82 @@ div.op2 {
     }
 
     footer {
-        width: 100%;
+        width: 100vw;
         height: 10vh;
         bottom:0;
         background-color: white;
         text-align: center;
         vertical-align: top;
-
     }   
+
+    .busca__input {
+        align-items: center;
+        background-color: white;
+        font-size: 1rem;
+        width: 100%;
+    }  
+
+    .boxcentral {
+        align-items: left;
+        justify-content: left;
+        border-radius: 10px;
+        line-height: 150%;
+        text-align: left;
+        width: 93vw;
+        border: 2px solid black;
+        padding: 10px;
+        line-height: 40px;
+        margin-top: 10px;
+        background-color: white;
+    }
+
+    .box_titulo {
+        font-size: 4vw;
+        width: 50%;
+        font-weight: bold;     
+    }
+
+    .boxtitulocombusca {
+        display: none;
+    }
+
+    .box_titulo_interno {
+        font-size: 4vw;
+        width: 70%;
+        font-weight: bold;   
+        color: white;
+    } 
+    
+    .box_titulo {
+        font-size: 4vw;
+        width: 50%;
+        font-weight: bold;     
+        color: white;
+    }
+  
+  
+
+    .box_botoes {
+        width: 17%; /* Valor da Largura */
+        align-items: left;
+        padding: 1px;
+    }
+
+    .boxtitulocombusca_responsivo {
+        display: block;
+        line-height: 40px;
+        border-radius: 10px;  
+        text-align: left;   
+        color: black;
+        width: 93vw;
+        height: 15vh;
+        padding: 1px;
+        background-color: #CE7C2A;
+        margin-top: 15px;
+        color: white;
+        border: 2px solid black;
+    }
+
 
     .divanimais {
         /* Background pattern from Toptal Subtle Patterns */

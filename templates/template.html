@@ -1,62 +1,90 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <link href="{{ url_for('static',filename='app.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    
-  <title>QuizMaker</title>
-</head>
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename = 'logopequeno.png') }}" /></a>
-      <div>quiz<font color="#71C3FF">maker</font></div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
-          </li>
-          {% if(session['tipousuario_logado'] == 1)%}
-          <li class="nav-item dropdown">
-            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Configurações
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="/usuario">Usuários</a></li>
-              <li><a class="dropdown-item" href="/tipousuario">Tipos de Usuário</a></li>
-              <li><a class="dropdown-item" href="/tipostatus">Tipos de Status</a></li>
+<html lang="pt-br">
+  <head>
+    <title>Petcenter - AmaralPet</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- =============================================================================================== -->
+    <link href="{{ url_for('static', filename = 'app.css') }}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    <div class="divmarrom">
+      <i class="bi bi-envelope-fill" style="font-size:1.5rem; color:#CE7C2A;"></i> amaralpet@amaralpet.com.br</p>
+      <i class="bi bi-telephone-fill" style="font-size:1.5rem; color:#CE7C2A;"></i> +55 (41) 9999-99999
+    </div>
+    <br>
+    <div class="divbranco">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename = 'logo.png') }}" /></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Sobre</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Serviços</a>
+              </li>
+                      
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Área Veterinário
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item">
+                    <a class="dropdown-item" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Login</a>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>                   
+                  <li><a class="dropdown-item" href="/usuario">Usuários</a></li>
+                  <li><a class="dropdown-item" href="/tipousuario">Tipo Usuário</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
             </ul>
-          </li>
-          {% endif%}
-          <li class="nav-item dropdown">
-            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Pesquisas
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="/pesquisa">Minhas Pesquisas</a></li>
-              <li><a class="dropdown-item" href="/responderOutraPergunta">Entrar código</a></li>
-            </ul>
-          </li>        
-          <li class="nav-item">
-            <a class="nav-link active" href="/editarSenhaUsuario">Trocar Senha</a>
-          </li>             
-          <li class="nav-item">
-            <a class="nav-link active" href="/logout">Logout</a>
-          </li>   
-        </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <div class="divlogin">
+            <form class="" method="POST" action="{{ url_for('autenticar') }}">
+              <diV class="divlogin-logo"><img src="{{ url_for('static', filename = 'logo.png') }}" /></div>
+              <div class="divlogin-input">
+                <input class="form-control" type="text" name="usuario" placeholder="login" required />
+              </div>
+              <div class="divlogin-input">
+                <span class="btn-show-pass"><i class="zmdi zmdi-eye"></i></span>
+                <input class="form-control" type="password" name="senha" placeholder="senha" required />
+              </div>
+              <div class="container-login100-form-btn">
+                <div class="wrap-login100-form-btn">
+                  <button class="btn btn-primary">Login</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-  </nav>
-</header>
-<body>
   <div class="container" style="min-height: 620px"> 
     <div class="box_alert">
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -74,28 +102,62 @@
     {% endblock%}
   </div>
 </div>
-<footer class="text-right text-white">
-  <!-- Grid container -->
-  <div class="container p-3">
-    <!-- Section: Social media -->
-    <section>
-      <!-- Facebook -->
-      <a class="btn btn-outline-dark" target="_blank" href="https://www.facebook.com/douglas.amaral2306" role="button"><i class="bi bi-facebook" style="font-size:1.5rem; color:black;"></i></a>
-      <!-- Instagram -->
-      <a class="btn btn-outline-dark" target="_blank" href="https://www.instagram.com/douglaxz/" role="button"><i class="bi bi-instagram" style="font-size:1.5rem; color:black;"></i></a>
-      <!-- Linkedin -->
-      <a class="btn btn-outline-dark" target="_blank" href="https://www.linkedin.com/in/douglas-amaral-8a517227/" role="button"><i class="bi bi-linkedin" style="font-size:1.5rem; color:black;"></i></a>
-      <!-- Github -->
-      <a class="btn btn-outline-dark" target="_blank" href="https://github.com/Douglaxz" role="button"><i class="bi bi-github" style="font-size:1.5rem; color:black;"></i></a>
-    </section>
-    <!-- Section: Social media -->
+<footer class="py-5">
+  <div class="row text-light bg-dark">
+    <div class="col-6 col-md-2 mb-3">
+      <h5>Redes Sociais</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Facebook</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Linkedin</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Instagram</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Twitter</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Tiktok</a></li>
+      </ul>
+    </div>
+
+    <div class="col-6 col-md-2 mb-3">
+      <h5>Suporte</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Contato</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Chat Online</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Whatsapp</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Telegram</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Snapchat</a></li>
+      </ul>
+    </div>
+
+    <div class="col-6 col-md-2 mb-3">
+      <h5>Sobre</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Equipe</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Vagas</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Blog</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Carreira</a></li>
+        <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-light">Imprensa</a></li>
+      </ul>
+    </div>
+
+    <div class="col-md-5 offset-md-1 mb-3">
+      <form>
+        <h5>Inscreva-se em nossa newsletter</h5>
+        <p>Semalmente você receberá noticias da AmaralPet no seu e-mail</p>
+        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+          <label for="newsletter1" class="visually-hidden">Email</label>
+          <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
+          <button class="btn btn-primary" type="button">Inscrever</button>
+        </div>
+      </form>
+    </div>
   </div>
-  <!-- Grid container -->
+  <div class="text-light bg-dark">
+    <p>&copy; 2022 Company, Inc. All rights reserved.</p>
+    <ul class="list-unstyled d-flex">
+      <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg></a></li>
+      <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg></a></li>
+      <li class="ms-3"><a class="link-dark" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg></a></li>
+    </ul>
+  </div>
 </footer>
-<script>
-  function myFunction() {
-      document.getElementById("formulario").submit();
-  }
-</script>  
+  <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
