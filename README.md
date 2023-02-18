@@ -11,10 +11,10 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 ## :wrench: Pré-requisitos e instalações:
 Para começar, verifique a instalação dos seguintes itens:
-- [X] Python 
-- [X] Flask
-- [X] SQLAlchemy
-- [X] Mysql
+- [X] Python - https://python.org.br/
+- [X] Flask - pip install flask
+- [X] SQLAlchemy - pip install flask
+- [X] Mysql - https://www.mysql.com/downloads/
 - [X] Flask Bcrypt  - pip install flask-bcript
 
 ## :hammer_and_wrench: Construído com:
@@ -32,17 +32,18 @@ Para começar, verifique a instalação dos seguintes itens:
 
 
 ## :memo: Checklist de funcionalidades - TODO LIST
-- [ ] Funcionalidade Login
-- [ ] Funcionalidade Logout
-- [ ] Funcionalidade template
-- [ ] Funcionalidade usuário
-- [ ] Funcionalidade tipo de usuário
-- [ ] Funcionalidade Cadastro de tipos de animais
-- [ ] Funcionalidade Cadastro de raças
-- [ ] Funcionalidade Cadastro de clientes
-- [ ] Funcionalidade Fotos de clientes
-- [ ] Funcionalidade Agendamento de consulta
-- [ ] Outros
+- [X] Funcionalidade Login
+- [X] Funcionalidade Logout
+- [X] Funcionalidade template
+- [X] Funcionalidade usuário
+- [X] Funcionalidade tipo de usuário
+- [X] Funcionalidade Cadastro de tipos de pets
+- [X] Funcionalidade Cadastro de pets
+- [X] Funcionalidade Cadastro de tutuores
+- [X] Funcionalidade Agendamento de consulta
+- [X] Landpage
+- [ ] Foto dos pets
+
 
 
 ## :paperclips: Colaborando:
