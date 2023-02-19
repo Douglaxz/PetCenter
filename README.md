@@ -33,11 +33,6 @@ Para começar, verifique a instalação dos seguintes itens:
 - <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
 - <img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" />
 
-
-| ------ |------ |
-| <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> |
-
-
 ## :memo: Checklist de funcionalidades - TODO LIST
 - [X] Funcionalidade Login
 - [X] Funcionalidade Logout
