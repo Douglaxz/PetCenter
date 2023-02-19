@@ -17,10 +17,10 @@ Para começar, verifique a instalação dos seguintes itens:
 - [X] Mysql - https://www.mysql.com/downloads/
 - [X] Flask Bcrypt  - pip install flask-bcript
 
-| Componente    | Site          | Download      |
-| ------------- | ------------- |
-| Python        | https://python.org.br/  |https://www.python.org/downloads/ |
-| Content Cell  | Content Cell  |
+| Componente    | Site                  | Download                         |
+| ------------- | --------------------- |----------------------------------|
+| Python        | https://python.org.br/|https://www.python.org/downloads/ |
+| Content Cell  | Content Cell          |
 
 ## :hammer_and_wrench: Construído com:
 - VsCode
