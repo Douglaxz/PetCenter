@@ -11,11 +11,16 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 ## :wrench: Pré-requisitos e instalações:
 Para começar, verifique a instalação dos seguintes itens:
-- [X] Python - https://python.org.br/
-- [X] Flask - pip install flask
+- [X] Python | https://python.org.br/ | https://www.python.org/downloads/
+- [X] Flask  | pip install flask
 - [X] SQLAlchemy - pip install flask
 - [X] Mysql - https://www.mysql.com/downloads/
 - [X] Flask Bcrypt  - pip install flask-bcript
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
 
 ## :hammer_and_wrench: Construído com:
 - VsCode
