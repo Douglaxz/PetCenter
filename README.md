@@ -34,6 +34,7 @@ Para começar, verifique a instalação dos seguintes itens:
 - <img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" />
 
 | tipo 1 | tipo2 |
+| ------ |------ |
 | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> |
 
 
