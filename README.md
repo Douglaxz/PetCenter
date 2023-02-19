@@ -11,16 +11,18 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 ## :wrench: Pré-requisitos e instalações:
 Para começar, verifique a instalação dos seguintes itens:
-- [X] Python | https://python.org.br/ | https://www.python.org/downloads/
-- [X] Flask  | pip install flask
-- [X] SQLAlchemy - pip install flask
-- [X] Mysql - https://www.mysql.com/downloads/
-- [X] Flask Bcrypt  - pip install flask-bcript
 
-| Componente    | Site                  | Download                         |
-| ------------- | --------------------- |----------------------------------|
-| Python        | https://python.org.br/|https://www.python.org/downloads/ |
-| Content Cell  | Content Cell          |
+
+
+- [X] Flask Bcrypt  - 
+
+| Componente    | Site                                          | Download / intalação                    |
+| ------------- | ----------------------------------------------|-----------------------------------------|
+| Python        | https://python.org.br/                        |https://www.python.org/downloads/        |
+| Flask         | https://flask.palletsprojects.com/en/2.2.x/   |pip install flask                        |
+| SQLAlchemy    | https://www.sqlalchemy.org/                   |https://www.sqlalchemy.org/download.html |
+| Mysql         | https://www.mysql.com/downloads/              |https://www.mysql.com/downloads/         |
+| Flask Bcrypt  | https://flask-bcrypt.readthedocs.io/en/1.0.1/ |pip install flask-bcript                 |
 
 ## :hammer_and_wrench: Construído com:
 - VsCode
