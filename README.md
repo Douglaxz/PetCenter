@@ -12,8 +12,8 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 ## :wrench: Pré-requisitos e instalações:
 Para começar, verifique a instalação dos seguintes itens:
 
-| [X] | Componente    | Site                                          | Download / intalação                    |
-| [X] | ------------- | ----------------------------------------------|-----------------------------------------|
+|     | Componente    | Site                                          | Download / intalação                    |
+|---- | --------------| ----------------------------------------------|-----------------------------------------|
 | [X] | Python        | https://python.org.br/                        |https://www.python.org/downloads/        |
 | [X] | Flask         | https://flask.palletsprojects.com/en/2.2.x/   |pip install flask                        |
 | [X] | SQLAlchemy    | https://www.sqlalchemy.org/                   |https://www.sqlalchemy.org/download.html |
