@@ -12,13 +12,13 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 ## :wrench: Pré-requisitos e instalações:
 Para começar, verifique a instalação dos seguintes itens:
 
-|     | Componente    | Site                                          | Download / intalação                    |
-|---- | --------------| ----------------------------------------------|-----------------------------------------|
-| [X] | Python        | https://python.org.br/                        |https://www.python.org/downloads/        |
-| [X] | Flask         | https://flask.palletsprojects.com/en/2.2.x/   |pip install flask                        |
-| [X] | SQLAlchemy    | https://www.sqlalchemy.org/                   |https://www.sqlalchemy.org/download.html |
-| [X] | Mysql         | https://www.mysql.com/downloads/              |https://www.mysql.com/downloads/         |
-| [X] | Flask Bcrypt  | https://flask-bcrypt.readthedocs.io/en/1.0.1/ |pip install flask-bcript                 |
+| Componente    | Site                                          | Download / intalação                    |
+| ------------- | ----------------------------------------------|-----------------------------------------|
+| Python        | https://python.org.br/                        |https://www.python.org/downloads/        |
+| Flask         | https://flask.palletsprojects.com/en/2.2.x/   |pip install flask                        |
+| SQLAlchemy    | https://www.sqlalchemy.org/                   |https://www.sqlalchemy.org/download.html |
+| Mysql         | https://www.mysql.com/downloads/              |https://www.mysql.com/downloads/         |
+| Flask Bcrypt  | https://flask-bcrypt.readthedocs.io/en/1.0.1/ |pip install flask-bcript                 |
 
 ## :hammer_and_wrench: Construído com:
 - VsCode
@@ -32,6 +32,8 @@ Para começar, verifique a instalação dos seguintes itens:
 - <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
 - <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
 - <img src="https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white" />
+
+| <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /> | <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
 
 
 ## :memo: Checklist de funcionalidades - TODO LIST
