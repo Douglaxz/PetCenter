@@ -200,6 +200,6 @@ class FormularioConsultaEdicao(FlaskForm):
     horario = DateTimeLocalField('Horário:', [validators.DataRequired()], format='%Y-%m-%dT%H:%M')
     pet = SelectField('Pet:', coerce=int, choices=[(g.cod_pet, g.nome_pet) for g in tb_pet.query.order_by('nome_pet')])
     status = SelectField('Situação:', coerce=int, choices=[(0,"Agendada"),(1,"Realizada"),(2,"Cancelada")])
-    observacoes = TextAreaField('Observações:', [validators.DataRequired(), validators.Length(min=1, max=50)])
+    observacoes = TextAreaField('Observações:')
 
     

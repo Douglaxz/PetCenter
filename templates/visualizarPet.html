@@ -30,4 +30,40 @@
         {{ form.observacoes(class = 'form-control') }}</div>   
   </fieldset>  
 </div>
+<div class="boxcentral">
+  <table class="table table-bordered table-responsiv table-hover">
+      <thead>
+          <tr>
+            <th width="20%">Horário</th>
+            <th width="10%">Pet</th>
+            <th width="10%">Tipo</th>
+            <th width="10%">Status</th>
+            <th width="10%">Ações</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for consulta in consultas.items %}
+          <tr>
+              <td class="text-left">{{ consulta.data_consulta.strftime('%d/%m/%Y %H:%M') }}</td>
+              <td class="text-left">{{ consulta.nome_pet }}</td>
+              <td class="text-left">{{ consulta.desc_tipopet }}</td>
+              <td class="text-center">
+                {% if consulta.status_consulta == 0: %}
+                <i class="bi bi-calendar-week" style="font-size:2rem; color:orange;">
+                {% endif %}
+                {% if consulta.status_consulta == 1: %}
+                <i class="bi bi-calendar2-check" style="font-size:2rem; color:green;">
+                {% endif %}  
+                {% if consulta.status_consulta == 2: %}
+                <i class="bi bi-calendar2-x" style="font-size:2rem; color:red;">
+                {% endif %}         
+                </td>             
+              <td class="text-center">
+                <a class="btn" href="{{url_for('visualizarConsulta',id=consulta.cod_consulta)}}"><i class="bi bi-eye" style="font-size:1.5rem; color:black;"></i></a>
+            </td>              
+          </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
 {% endblock%}

@@ -792,7 +792,18 @@ def visualizarPet(id):
     form.datanascimento.data = pet.datanasc_pet
     form.status.data = pet.status_pet
     form.tutor.data = pet.cod_tutor
-    return render_template('visualizarPet.html', titulo='Visualizar Pet', id=id, form=form)   
+
+    page = request.args.get('page', 1, type=int)
+    consultas = tb_consulta.query\
+    .join(tb_pet, tb_pet.cod_pet==tb_consulta.cod_pet)\
+    .join(tb_tutor, tb_tutor.cod_tutor==tb_pet.cod_tutor)\
+    .join(tb_tipopet, tb_tipopet.cod_tipopet==tb_pet.cod_tipopet)\
+    .filter(tb_pet.cod_pet==id)\
+    .add_columns(tb_pet.nome_pet, tb_tutor.nome_tutor, tb_consulta.cod_consulta, tb_tipopet.desc_tipopet, tb_consulta.status_consulta, tb_consulta.data_consulta)\
+    .order_by(tb_consulta.data_consulta.desc())\
+    .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)  
+
+    return render_template('visualizarPet.html', titulo='Visualizar Pet', id=id, form=form,consultas=consultas)   
 
 #---------------------------------------------------------------------------------------------------------------------------------
 #ROTA: editarPet
@@ -869,7 +880,7 @@ def consulta():
         .join(tb_tutor, tb_tutor.cod_tutor==tb_pet.cod_tutor)\
         .join(tb_tipopet, tb_tipopet.cod_tipopet==tb_pet.cod_tipopet)\
         .add_columns(tb_pet.nome_pet, tb_tutor.nome_tutor, tb_consulta.cod_consulta, tb_tipopet.desc_tipopet, tb_consulta.status_consulta, tb_consulta.data_consulta)\
-        .order_by(tb_consulta.data_consulta)\
+        .order_by(tb_consulta.data_consulta.desc())\
         .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)
     else:
         consultas = tb_consulta.query\
@@ -878,7 +889,7 @@ def consulta():
         .join(tb_tipopet, tb_tipopet.cod_tipopet==tb_pet.cod_tipopet)\
         .filter(tb_pet.nome_pet.ilike(f'%{pesquisa}%'))\
         .add_columns(tb_pet.nome_pet, tb_tutor.nome_tutor, tb_consulta.cod_consulta, tb_tipopet.desc_tipopet, tb_consulta.status_consulta, tb_consulta.data_consulta)\
-        .order_by(tb_consulta.data_consulta)\
+        .order_by(tb_consulta.data_consulta.desc())\
         .paginate(page=page, per_page=ROWS_PER_PAGE , error_out=False)     
     return render_template('consultas.html', titulo='Consultas', consultas=consultas, form=form)
 
