@@ -43,7 +43,7 @@ Para começar, verifique a instalação dos seguintes itens:
 - [X] Funcionalidade Cadastro de pets
 - [X] Funcionalidade Cadastro de tutuores
 - [X] Funcionalidade Agendamento de consulta
-- [X] Landpage
+- [X] Landpage AmaralPet
 - [ ] Foto dos pets
 
 
