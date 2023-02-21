@@ -47,9 +47,6 @@ Para começar, verifique a instalação dos seguintes itens:
 - [X] Funcionalidade Cadastro de tutuores
 - [X] Funcionalidade Agendamento de consulta
 - [X] Landpage AmaralPet
-- [ ] Foto dos pets
-
-
 
 ## :paperclips: Colaborando:
 -vazio
