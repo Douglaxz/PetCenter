@@ -4,7 +4,7 @@
  Este projeto visa contemplar as funcionalidades de uma clinica veterinária
 
 ## :video_camera: Amostra do projeto:
-[<img src="https://github.com/Douglaxz/QuizCreator/blob/main/miniatura.png" width="100%">](https://youtu.be/5vW_blHynPw "AmaralPet - Petcenter")
+[<img src="https://github.com/Douglaxz/Petcenter/blob/main/miniatura.png" width="100%">](https://youtu.be/5vW_blHynPw "AmaralPet - Petcenter")
 
 
 
