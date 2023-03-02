@@ -1,6 +1,6 @@
  # Gerenciador de uma clinica veterinária - PetCenter
 
- ## :computer: Descrição do projeto: Gerenciador de quiz e pesquisas - QuizCreator
+ ## :computer: Descrição do projeto: 
  Este projeto visa contemplar as funcionalidades de uma clinica veterinária
 
 ## :video_camera: Amostra do projeto:
